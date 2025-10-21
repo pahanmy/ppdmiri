@@ -1,1 +1,520 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPPD Miri - MyPPD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
+    <style>
+        /* Menggunakan font Inter sebagai font utama */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Kelas untuk transition yang lancar */
+        .smooth-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        /* Gaya untuk pautan sidebar yang aktif */
+        .sidebar-link.active {
+            background-color: #eff6ff; /* blue-50 */
+            color: #2563eb; /* blue-600 */
+            font-weight: 600;
+        }
+        /* Menyembunyikan anak panah pada input jenis nombor */
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type='number'] {
+            -moz-appearance: textfield;
+        }
+        .step-indicator.active .step-circle {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+        }
+        .step-indicator.active .step-text {
+            color: #2563eb; /* blue-600 */
+            font-weight: 600;
+        }
+        .step-indicator .step-line {
+            background-color: #e5e7eb; /* gray-200 */
+        }
+         .step-indicator.active .step-line {
+            background-color: #2563eb; /* blue-600 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
 
+    <div class="relative min-h-screen md:flex">
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-20 md:hidden hidden"></div>
+
+        <aside id="sidebar" class="bg-white text-gray-800 w-64 space-y-6 py-7 px-4 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-300 ease-in-out z-30 shadow-lg">
+            <div class="px-2">
+                <h1 class="text-2xl font-bold text-blue-700">MyPPD Miri</h1>
+            </div>
+            
+            <nav id="sidebar-nav" class="flex flex-col space-y-2">
+                <a href="index.html" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100 smooth-transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="mytempahan.html" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100 smooth-transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    <span class="font-medium">MyTempahan</span>
+                </a>
+                <a href="mykenderaan.html" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100 smooth-transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2-2h8a1 1 0 001-1z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path></svg>
+                    <span class="font-medium">MyKenderaan</span>
+                </a>
+                <a href="myppd.html" class="sidebar-link active flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100 smooth-transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                    <span class="font-medium">MyPPD</span>
+                </a>
+                <a href="myplanner.html" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100 smooth-transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    <span class="font-medium">MyPlanner</span>
+                </a>
+                <a href="myqr.html" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100 smooth-transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v.01M12 8v.01M12 12v.01M12 16v.01M8 4v.01M8 8v.01M8 12v.01M8 16v.01M4 4v.01M4 8v.01M4 12v.01M4 16v.01M16 4v.01M16 8v.01M16 12v.01M16 16v.01M20 4v.01M20 8v.01M20 12v.01M20 16v.01" />
+                    </svg>
+                    <span class="font-medium">MyQR</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="flex-1 flex flex-col">
+            <header class="bg-white shadow-sm md:hidden sticky top-0 z-10">
+                <div class="px-6 py-4 flex justify-between items-center">
+                    <h1 class="text-xl font-bold text-blue-700">MyPPD Miri</h1>
+                    <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </header>
+
+            <main class="flex-1 p-6 md:p-10">
+                
+                <section id="myppd" class="content-section">
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                        <div class="flex flex-col md:flex-row items-center gap-6 pb-6 border-b">
+                            <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden flex-shrink-0">
+                                <img id="ppd-photo" src="https://placehold.co/150x150/dbeafe/3b82f6?text=PPD" alt="PPD Miri" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1 text-center md:text-left">
+                                <p class="text-sm font-semibold text-gray-500">PEJABAT PENDIDIKAN DAERAH MIRI</p>
+                                <h2 class="text-3xl font-bold text-gray-900" id="ppd-name"></h2>
+                                <p class="text-lg text-gray-600" id="ppd-status"></p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+                                <h3 class="text-xl font-semibold text-gray-800">Jadual PPD</h3>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <button id="buka-modal-temujanji" class="w-full sm:w-auto bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 smooth-transition flex items-center justify-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                                        Buat Temujanji
+                                    </button>
+                                    <button id="buka-modal-aktiviti" class="w-full sm:w-auto bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 smooth-transition flex items-center justify-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                        Tambah Aktiviti
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center mb-4">
+                                <button id="prev-month" class="p-2 rounded-full hover:bg-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <h4 class="text-lg font-bold text-gray-800 w-40 text-center" id="current-month-year"></h4>
+                                <button id="next-month" class="p-2 rounded-full hover:bg-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                                </button>
+                            </div>
+                            <div id="jadual-temujanji" class="grid grid-cols-7 text-center text-sm gap-2">
+                                <div class="font-medium text-gray-500">Ahad</div>
+                                <div class="font-medium text-gray-500">Isnin</div>
+                                <div class="font-medium text-gray-500">Selasa</div>
+                                <div class="font-medium text-gray-500">Rabu</div>
+                                <div class="font-medium text-gray-500">Khamis</div>
+                                <div class="font-medium text-gray-500">Jumaat</div>
+                                <div class="font-medium text-gray-500">Sabtu</div>
+                            </div>
+
+                            <div class="mt-8 border-t pt-6">
+                                <h4 class="text-xl font-semibold text-gray-800 mb-4">Senarai Aktiviti Bulanan</h4>
+                                <div id="senarai-aktiviti-bulanan" class="space-y-4">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </main>
+
+            <footer class="bg-white mt-auto border-t">
+                <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+                    <p>&copy; 2024 Hak Cipta Terpelihara. Pejabat Pendidikan Daerah Miri.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <div id="modal-temujanji" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-xl max-h-screen overflow-y-auto">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-xl font-semibold text-gray-800">Borang Permohonan Temujanji</h3>
+                <button id="tutup-modal-temujanji" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <form id="borang-temujanji">
+                <div class="p-6 space-y-5">
+                    <div id="mesej-temujanji" class="hidden p-4 mb-4 rounded-lg"></div>
+                    <div class="relative"><label for="ic-temujanji" class="block text-sm font-medium text-gray-700 mb-1">No. Kad Pengenalan <span class="text-red-500">*</span></label><input type="number" id="ic-temujanji" placeholder="Sahkan No. KP anda" class="w-full p-3 pl-10 border border-gray-300 rounded-lg" required><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none top-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm12 5a1 1 0 100-2H4a1 1 0 100 2h12zM4 13a1 1 0 100-2h6a1 1 0 100 2H4z" clip-rule="evenodd" /></svg></div></div>
+                    <div class="relative"><label for="nama-temujanji" class="block text-sm font-medium text-gray-700 mb-1">Nama Pegawai</label><input type="text" id="nama-temujanji" class="w-full p-3 pl-10 bg-gray-100 border border-gray-300 rounded-lg" readonly><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none top-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg></div></div>
+                    <div class="relative"><label for="tujuan-temujanji" class="block text-sm font-medium text-gray-700 mb-1">Tujuan Temujanji <span class="text-red-500">*</span></label><input type="text" id="tujuan-temujanji" class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none top-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg></div></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label for="tarikh-temujanji" class="block text-sm font-medium text-gray-700 mb-1">Tarikh <span class="text-red-500">*</span></label><input type="date" id="tarikh-temujanji" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></div>
+                        <div><label for="masa-temujanji" class="block text-sm font-medium text-gray-700 mb-1">Masa <span class="text-red-500">*</span></label><input type="time" id="masa-temujanji" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></div>
+                    </div>
+                </div>
+                <div class="p-6 border-t mt-6 flex justify-end">
+                    <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 smooth-transition">Hantar Permohonan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-aktiviti" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-xl max-h-screen overflow-y-auto">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-xl font-semibold text-gray-800">Borang Tambah Aktiviti PPD</h3>
+                <button id="tutup-modal-aktiviti" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <form id="borang-aktiviti">
+                <div class="p-6 space-y-5">
+                    <div id="mesej-aktiviti" class="hidden p-4 mb-4 rounded-lg"></div>
+                    <div class="relative"><label for="tajuk-aktiviti" class="block text-sm font-medium text-gray-700 mb-1">Tajuk Aktiviti <span class="text-red-500">*</span></label><input type="text" id="tajuk-aktiviti" class="w-full p-3 pl-10 border border-gray-300 rounded-lg" required><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none top-7"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg></div></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label for="tarikh-aktiviti" class="block text-sm font-medium text-gray-700 mb-1">Tarikh <span class="text-red-500">*</span></label><input type="date" id="tarikh-aktiviti" class="w-full p-2 border border-gray-300 rounded-lg" required></div>
+                        <div><label for="jenis-aktiviti" class="block text-sm font-medium text-gray-700 mb-1">Jenis Aktiviti <span class="text-red-500">*</span></label><input type="text" id="jenis-aktiviti" class="w-full p-2 border border-gray-300 rounded-lg" required></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label for="masa-mula-aktiviti" class="block text-sm font-medium text-gray-700 mb-1">Masa Mula <span class="text-red-500">*</span></label><input type="time" id="masa-mula-aktiviti" class="w-full p-2 border border-gray-300 rounded-lg" required></div>
+                        <div><label for="masa-tamat-aktiviti" class="block text-sm font-medium text-gray-700 mb-1">Masa Tamat <span class="text-red-500">*</span></label><input type="time" id="masa-tamat-aktiviti" class="w-full p-2 border border-gray-300 rounded-lg" required></div>
+                    </div>
+                </div>
+                <div class="p-6 border-t mt-6 flex justify-end">
+                    <button type="submit" class="bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-blue-700 smooth-transition">Tambah Aktiviti</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // === DATA APLIKASI (Hanya yang berkaitan dengan MyPPD) ===
+            const pegawaiData = [
+                { ic: '850101131234', nama: 'ALI BIN ABU', sektor: 'Sektor Perancangan', jawatan: 'Pegawai Perancangan' },
+                { ic: '900202104321', nama: 'SITI BINTI AMINAH', sektor: 'Sektor Pembelajaran', jawatan: 'Penolong Pegawai Pendidikan' },
+                { ic: '880303088765', nama: 'HEDRAWATI MOHAMAD', sektor: 'Sektor Pentaksiran dan Peperiksaan', jawatan: 'Ketua Sektor' },
+                { ic: '820530134455', nama: 'HASNA BINTI ROSLI', sektor: 'Sektor Pembelajaran', jawatan: 'Guru Cemerlang' }
+            ];
+            
+            const ppdInfo = {
+                nama: 'TUAN ISKANDAR BIN ISMAIL',
+                status: 'DALAM TUGASAN RASMI',
+                status_tambahan: 'Pengganti: Puan Noraini Binti Hassan, Timbalan PPD Sektor Perancangan',
+                cuti: true,
+                foto: 'https://placehold.co/150x150/dbeafe/3b82f6?text=PPD+Miri'
+            };
+
+            let temujanjiData = [
+                { id: 1, ic: '850101131234', tarikh: '2025-09-26', masaMula: '10:00', masaTamat: '11:00', tujuan: 'Mesyuarat Persediaan Program', status: 'DILULUSKAN' },
+                { id: 2, ic: '900202104321', tarikh: '2025-09-27', masaMula: '15:00', masaTamat: '16:00', tujuan: 'Sesi Bimbingan', status: 'DILULUSKAN' },
+                { id: 3, ic: '880303088765', tarikh: '2025-09-28', masaMula: '11:30', masaTamat: '12:30', tujuan: 'Perbincangan Projek Khas', status: 'DITOLAK' },
+                { id: 4, ic: '820530134455', tarikh: '2025-09-29', masaMula: '09:00', masaTamat: '10:00', tujuan: 'Pembentangan Laporan', status: 'DILULUSKAN' }
+            ];
+
+            let aktivitiPPDData = [
+                { id: 201, tarikh: '2025-09-25', masaMula: '08:00', masaTamat: '12:00', jenis: 'Mesyuarat', tajuk: 'Mesyuarat Pengurusan Bil. 9/2025' },
+                { id: 202, tarikh: '2025-09-25', masaMula: '14:30', masaTamat: '16:00', jenis: 'Ceramah', tajuk: 'Sesi Perkongsian Ilmu' },
+                { id: 203, tarikh: '2025-09-26', masaMula: '09:00', masaTamat: '13:00', jenis: 'Tugasan Luar', tajuk: 'Lawatan ke SMK Miri' },
+                { id: 204, tarikh: '2025-10-15', masaMula: '10:00', masaTamat: '12:00', jenis: 'Mesyuarat', tajuk: 'Mesyuarat Jawatankuasa Projek Khas' }
+            ];
+
+
+            // === PENGURUSAN DOM (Umum & MyPPD) ===
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            
+            // MyPPD Temujanji Elements
+            const ppdNameEl = document.getElementById('ppd-name');
+            const ppdStatusEl = document.getElementById('ppd-status');
+            const ppdPhotoEl = document.getElementById('ppd-photo');
+            const jadualTemujanjiEl = document.getElementById('jadual-temujanji');
+            const currentMonthYearEl = document.getElementById('current-month-year');
+            const prevMonthBtn = document.getElementById('prev-month');
+            const nextMonthBtn = document.getElementById('next-month');
+            const bukaModalTemujanjiBtn = document.getElementById('buka-modal-temujanji');
+            const senaraiAktivitiBulananEl = document.getElementById('senarai-aktiviti-bulanan');
+            
+            // Modal Temujanji
+            const modalTemujanji = document.getElementById('modal-temujanji');
+            const tutupModalTemujanjiBtn = document.getElementById('tutup-modal-temujanji');
+            const borangTemujanji = document.getElementById('borang-temujanji');
+            const icTemujanjiInput = document.getElementById('ic-temujanji');
+            const namaTemujanjiInput = document.getElementById('nama-temujanji');
+            const mesejTemujanjiEl = document.getElementById('mesej-temujanji');
+            const tarikhTemujanjiInput = document.getElementById('tarikh-temujanji');
+
+            // Modal Tambah Aktiviti
+            const modalAktiviti = document.getElementById('modal-aktiviti');
+            const bukaModalAktivitiBtn = document.getElementById('buka-modal-aktiviti');
+            const tutupModalAktivitiBtn = document.getElementById('tutup-modal-aktiviti');
+            const borangAktiviti = document.getElementById('borang-aktiviti');
+            const mesejAktivitiEl = document.getElementById('mesej-aktiviti');
+
+
+            // === FUNGSI-FUNGSI ===
+            
+            // --- FUNGSI UNTUK TEMUJANJI PPD ---
+            function updatePPDInfo() {
+                ppdNameEl.textContent = ppdInfo.nama;
+                ppdPhotoEl.src = ppdInfo.foto;
+                ppdPhotoEl.alt = `Foto ${ppdInfo.nama}`;
+                if (ppdInfo.cuti) {
+                    ppdStatusEl.innerHTML = `<span class="font-bold text-red-600">Cuti / Tiada di Pejabat.</span> ${ppdInfo.status_tambahan}`;
+                } else {
+                    ppdStatusEl.innerHTML = `<span class="font-bold text-green-600">${ppdInfo.status}</span>`;
+                }
+            }
+
+            function paparJadualTemujanji(month, year) {
+                jadualTemujanjiEl.innerHTML = `
+                    <div class="font-medium text-gray-500">Ahad</div>
+                    <div class="font-medium text-gray-500">Isnin</div>
+                    <div class="font-medium text-gray-500">Selasa</div>
+                    <div class="font-medium text-gray-500">Rabu</div>
+                    <div class="font-medium text-gray-500">Khamis</div>
+                    <div class="font-medium text-gray-500">Jumaat</div>
+                    <div class="font-medium text-gray-500">Sabtu</div>
+                `;
+                currentMonthYearEl.textContent = new Date(year, month).toLocaleDateString('ms-MY', { month: 'long', year: 'numeric' });
+                
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const startingDay = firstDay.getDay();
+
+                for (let i = 0; i < startingDay; i++) {
+                    const emptyDay = document.createElement('div');
+                    jadualTemujanjiEl.appendChild(emptyDay);
+                }
+
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    const dayEl = document.createElement('div');
+                    const date = new Date(year, month, i);
+                    const dateString = date.toISOString().split('T')[0];
+                    dayEl.className = 'py-2 border rounded-lg hover:bg-blue-50 cursor-pointer relative group';
+                    dayEl.innerHTML = `<span class="font-bold">${i}</span>`;
+
+                    const eventsHariIni = [...temujanjiData.filter(t => t.tarikh === dateString && t.status === 'DILULUSKAN'), ...aktivitiPPDData.filter(a => a.tarikh === dateString)];
+                    
+                    if (eventsHariIni.length > 0) {
+                        dayEl.classList.add('bg-blue-100', 'hover:bg-blue-200');
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'absolute top-full left-1/2 -translate-x-1/2 mt-2 p-2 bg-gray-800 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-10';
+                        const eventsHtml = eventsHariIni.map(event => {
+                            if (event.jenis) {
+                                return `<p class="font-semibold text-yellow-300">Aktiviti: ${event.jenis}</p><p>${event.masaMula} - ${event.masaTamat}: ${event.tajuk}</p>`;
+                            } else {
+                                return `<p class="font-semibold text-green-300">Temujanji</p><p>${event.masaMula} - ${event.masaTamat}: ${event.tujuan}</p>`;
+                            }
+                        }).join('<hr class="my-1 border-gray-600">');
+                        tooltip.innerHTML = eventsHtml;
+                        dayEl.appendChild(tooltip);
+                    } else {
+                        dayEl.classList.add('bg-white');
+                    }
+                    
+                    jadualTemujanjiEl.appendChild(dayEl);
+                }
+                paparSenaraiAktivitiBulanan(month, year);
+            }
+
+            function paparSenaraiAktivitiBulanan(month, year) {
+                senaraiAktivitiBulananEl.innerHTML = '';
+                const startOfMonth = new Date(year, month, 1).toISOString().split('T')[0];
+                const endOfMonth = new Date(year, month + 1, 0).toISOString().split('T')[0];
+
+                const eventsBulanIni = [...temujanjiData, ...aktivitiPPDData].filter(e => e.tarikh >= startOfMonth && e.tarikh <= endOfMonth).sort((a,b) => new Date(a.tarikh) - new Date(b.tarikh) || a.masaMula.localeCompare(b.masaMula));
+                
+                if (eventsBulanIni.length === 0) {
+                    senaraiAktivitiBulananEl.innerHTML = '<p class="text-gray-500 text-center">Tiada aktiviti atau temujanji dijadualkan untuk bulan ini.</p>';
+                } else {
+                    eventsBulanIni.forEach(event => {
+                        let icon, color;
+                        if (event.jenis) {
+                            icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>`;
+                            color = 'border-blue-200';
+                        } else {
+                            icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`;
+                            color = 'border-green-200';
+                        }
+                        senaraiAktivitiBulananEl.innerHTML += `
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-50 border-l-4 ${color}">
+                                ${icon}
+                                <div class="flex-1">
+                                    <p class="text-xs text-gray-500">${new Date(event.tarikh).toLocaleDateString('ms-MY', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                                    <p class="font-medium text-gray-900">${event.tajuk || event.tujuan}</p>
+                                    <p class="text-sm text-gray-600">${event.masaMula} - ${event.masaTamat} (${event.jenis || 'Temujanji'})</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+            
+            function buatTemujanji(data) {
+                temujanjiData.push(data);
+                paparJadualTemujanji(currentDate.getMonth(), currentDate.getFullYear());
+            }
+
+            // --- FUNGSI UMUM ---
+            function openSidebar() { sidebar.classList.remove('-translate-x-full'); sidebarOverlay.classList.remove('hidden'); }
+            function closeSidebar() { sidebar.classList.add('-translate-x-full'); sidebarOverlay.classList.add('hidden'); }
+            
+            function openModal(modal) { 
+                if (modal.id === 'modal-temujanji') { 
+                    borangTemujanji.reset(); 
+                    namaTemujanjiInput.value = '';
+                    mesejTemujanjiEl.classList.add('hidden');
+                    tarikhTemujanjiInput.min = new Date().toISOString().split('T')[0];
+                }
+                if (modal.id === 'modal-aktiviti') {
+                    borangAktiviti.reset();
+                    document.getElementById('tarikh-aktiviti').min = new Date().toISOString().split('T')[0];
+                }
+                modal.classList.remove('hidden'); 
+            }
+            function closeModal(modal) { modal.classList.add('hidden'); }
+
+            function paparkanMesej(el, jenis, teks) {
+                el.textContent = teks;
+                el.className = `p-3 rounded-lg text-sm ${jenis === 'ralat' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`;
+                el.classList.remove('hidden');
+            }
+            
+            // === EVENT LISTENERS ===
+            mobileMenuButton.addEventListener('click', (e) => { e.stopPropagation(); openSidebar(); });
+            sidebarOverlay.addEventListener('click', closeSidebar);
+            
+            // Listeners Temujanji
+            bukaModalTemujanjiBtn.addEventListener('click', () => openModal(modalTemujanji));
+            tutupModalTemujanjiBtn.addEventListener('click', () => closeModal(modalTemujanji));
+            modalTemujanji.addEventListener('click', (e) => { if (e.target === modalTemujanji) closeModal(modalTemujanji); });
+
+            icTemujanjiInput.addEventListener('blur', () => {
+                const pegawai = pegawaiData.find(p => p.ic === icTemujanjiInput.value);
+                namaTemujanjiInput.value = pegawai ? pegawai.nama : '';
+            });
+            
+            borangTemujanji.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const ic = icTemujanjiInput.value;
+                const nama = namaTemujanjiInput.value;
+                const tujuan = document.getElementById('tujuan-temujanji').value;
+                const tarikh = tarikhTemujanjiInput.value;
+                const masa = document.getElementById('masa-temujanji').value;
+
+                if (!ic || !nama || !tujuan || !tarikh || !masa) {
+                    paparkanMesej(mesejTemujanjiEl, 'ralat', 'Sila lengkapkan semua medan yang diperlukan.');
+                    return;
+                }
+                
+                // Semak konflik jadual PPD
+                const isConflict = temujanjiData.some(t => 
+                    t.tarikh === tarikh &&
+                    t.status === 'DILULUSKAN' &&
+                    ((masa >= t.masaMula && masa < t.masaTamat) || 
+                    (new Date(`2000-01-01T${masa}`) < new Date(`2000-01-01T${t.masaTamat}`) && new Date(`2000-01-01T${document.getElementById('masa-temujanji').value}`) > new Date(`2000-01-01T${t.masaMula}`))
+                    )
+                );
+
+                if (isConflict) {
+                    paparkanMesej(mesejTemujanjiEl, 'ralat', 'Jadual PPD sudah terisi pada masa tersebut. Sila pilih waktu lain.');
+                    return;
+                }
+
+                const newAppointment = {
+                    id: Date.now(),
+                    ic: ic,
+                    tarikh: tarikh,
+                    masaMula: masa,
+                    masaTamat: new Date(new Date(`2000-01-01T${masa}`).getTime() + 60*60000).toTimeString().substring(0, 5),
+                    tujuan: tujuan,
+                    status: 'MENUNGGU KELULUSAN'
+                };
+                temujanjiData.push(newAppointment);
+                paparJadualTemujanji(currentDate.getMonth(), currentDate.getFullYear());
+                paparkanMesej(mesejTemujanjiEl, 'berjaya', 'Permohonan temujanji berjaya dihantar.');
+                setTimeout(() => closeModal(modalTemujanji), 2000);
+            });
+            
+            // Listeners Tambah Aktiviti
+            bukaModalAktivitiBtn.addEventListener('click', () => openModal(modalAktiviti));
+            tutupModalAktivitiBtn.addEventListener('click', () => closeModal(modalAktiviti));
+            modalAktiviti.addEventListener('click', (e) => { if (e.target === modalAktiviti) closeModal(modalAktiviti); });
+
+            borangAktiviti.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const tajuk = document.getElementById('tajuk-aktiviti').value;
+                const tarikh = document.getElementById('tarikh-aktiviti').value;
+                const jenis = document.getElementById('jenis-aktiviti').value;
+                const masaMula = document.getElementById('masa-mula-aktiviti').value;
+                const masaTamat = document.getElementById('masa-tamat-aktiviti').value;
+
+                if (!tajuk || !tarikh || !jenis || !masaMula || !masaTamat) {
+                    paparkanMesej(mesejAktivitiEl, 'ralat', 'Sila lengkapkan semua medan yang diperlukan.');
+                    return;
+                }
+
+                const newActivity = {
+                    id: Date.now(),
+                    tarikh: tarikh,
+                    masaMula: masaMula,
+                    masaTamat: masaTamat,
+                    jenis: jenis,
+                    tajuk: tajuk
+                };
+                aktivitiPPDData.push(newActivity);
+                paparJadualTemujanji(currentDate.getMonth(), currentDate.getFullYear());
+                paparkanMesej(mesejAktivitiEl, 'berjaya', 'Aktiviti PPD berjaya ditambah.');
+                setTimeout(() => closeModal(modalAktiviti), 2000);
+            });
+            
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                paparJadualTemujanji(currentDate.getMonth(), currentDate.getFullYear());
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                paparJadualTemujanji(currentDate.getMonth(), currentDate.getFullYear());
+            });
+
+
+            // === INISIALISASI ===
+            updatePPDInfo();
+            const currentDate = new Date();
+            paparJadualTemujanji(currentDate.getMonth(), currentDate.getFullYear());
+        });
+    </script>
+</body>
+</html>
