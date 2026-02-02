@@ -20,8 +20,14 @@
             background-attachment: fixed;
             background-size: cover;
         }
+
+        @keyframes logo-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .logo-pulse { animation: logo-pulse 2s infinite ease-in-out; }
         
-        /* Glassmorphism Panel */
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
@@ -30,11 +36,10 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
         }
 
-        /* Tech Card - Responsive Logic */
         .tech-card {
             display: flex;
             align-items: center;
-            flex-direction: row; /* Mobile: Mendatar */
+            flex-direction: row; 
             padding: 1rem;
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(255, 255, 255, 1);
@@ -45,7 +50,7 @@
 
         @media (min-width: 768px) {
             .tech-card {
-                flex-direction: column; /* Desktop: Menegak */
+                flex-direction: column; 
                 text-align: center;
                 padding: 2rem;
                 justify-content: center;
@@ -53,35 +58,9 @@
             .tech-card:hover {
                 transform: translateY(-8px) scale(1.02);
                 box-shadow: 0 20px 40px -15px rgba(91, 76, 243, 0.2);
-                background: rgba(255, 255, 255, 1);
             }
         }
 
-        /* Logo Animation */
-        .profile-logo-outer {
-            position: relative;
-            width: 130px; height: 130px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .logo-ring {
-            position: absolute;
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 2px dashed #5B4CF3;
-            animation: rotate 20s linear infinite;
-        }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .profile-logo {
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            background: white;
-            z-index: 2;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        /* Grid Container */
         .grid-container-custom { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
         @media (min-width: 768px) { .grid-container-custom { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
         @media (min-width: 1280px) { .grid-container-custom { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
@@ -91,133 +70,119 @@
 </head>
 <body class="text-gray-800 antialiased">
 
-    <div class="min-h-screen flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <main class="flex-grow py-8 md:py-16">
-            
-            <div class="text-center mb-10 md:mb-16">
-                <div class="profile-logo-outer mb-6 md:mb-8">
-                    <div class="logo-ring opacity-30"></div>
-                    <div class="profile-logo border-4 border-white">
-                        <img src="https://i.ibb.co/yn0CBgt3/logo-PPD-Miri-LATEST.png" alt="Logo PPD Miri" class="w-full h-full object-contain p-2">
-                    </div>
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 p-2 rounded-lg logo-pulse text-white">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4H8V8H4V4Z" fill="currentColor"></path><path d="M4 16H8V20H4V16Z" fill="currentColor"></path><path d="M16 4H20V8H16V4Z" fill="currentColor"></path><path d="M10 4H14V6H10V4Z" fill="currentColor"></path><path d="M10 8H12V10H10V8Z" fill="currentColor"></path><path d="M12 12H14V14H12V12Z" fill="currentColor"></path><path d="M10 16H12V18H10V16Z" fill="currentColor"></path><path d="M14 16H16V18H14V16Z" fill="currentColor"></path><path d="M16 12H18V14H16V12Z" fill="currentColor"></path><path d="M16 8H20V10H16V8Z" fill="currentColor"></path><path d="M12 18H14V20H12V18Z" fill="currentColor"></path><path d="M4 10H6V14H4V10Z" fill="currentColor"></path></svg>
                 </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-indigo-600 tracking-tight leading-none">SPARK</h1>
+                    <p class="text-[10px] text-gray-500 font-medium uppercase tracking-widest mt-1">Percikan Inovasi Kehadiran Digital</p>
+                </div>
+            </div>
+            <div id="live-datetime" class="hidden sm:flex glass-panel px-4 py-1.5 rounded-full text-[11px] font-bold text-gray-600 shadow-sm items-center gap-2"></div>
+        </div>
+    </header>
 
-                <h1 class="text-3xl md:text-6xl font-black text-[#5B4CF3] tracking-tighter mb-2 md:mb-4">
-                    PORTAL <span class="text-gray-900">PPD MIRI</span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <main class="py-8 md:py-16">
+            <div class="text-center mb-12">
+                <div class="mb-6">
+                    <img src="https://i.ibb.co/yn0CBgt3/logo-PPD-Miri-LATEST.png" alt="Logo PPD Miri" class="w-32 h-32 mx-auto drop-shadow-xl">
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter mb-4 uppercase">
+                    Portal Rasmi <span class="text-indigo-600">PPD Miri</span>
                 </h1>
-                
-                <div id="live-datetime" class="glass-panel px-4 py-1.5 rounded-full text-[10px] md:text-sm font-bold text-gray-600 shadow-sm inline-flex items-center gap-2">
-                    <span class="flex h-1.5 w-1.5 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
-                    </span>
-                    Memuatkan...
+                <div class="sm:hidden mb-6 flex justify-center">
+                    <div id="live-datetime-mobile" class="glass-panel px-4 py-1.5 rounded-full text-[10px] font-bold text-gray-600 shadow-sm inline-flex items-center gap-2"></div>
                 </div>
             </div>
 
             <div class="grid-container-custom w-full">
-                
-                <a href="https://pahanmy.github.io/spark/index.html" target="_blank" 
-                   class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
-                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-indigo-50 p-3 md:p-5 rounded-2xl text-[#5B4CF3]">
+                <a href="https://pahanmy.github.io/spark/index.html" target="_blank" class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
+                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-indigo-50 p-4 rounded-2xl text-indigo-600">
                         <svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                     </div>
                     <div class="flex-grow">
                         <h3 class="text-base md:text-xl font-black text-gray-900 md:mb-2 uppercase">SPARK</h3>
-                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Pengurusan Digital Bersepadu</p>
+                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Kehadiran Digital & Pengurusan Aset</p>
                         <div class="hidden md:block space-y-1">
-                            <div class="text-[11px] text-gray-500 font-bold uppercase">• Kehadiran Digital QR</div>
-                            <div class="text-[11px] text-gray-500 font-bold uppercase">• Sistem Inventori Aset</div>
+                            <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Kehadiran Digital QR</div>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://pahanmy.github.io/spark/tempahanbilik.html" target="_blank" 
-                   class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
-                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-amber-50 p-3 md:p-5 rounded-2xl text-[#F59E0B]">
+                <a href="https://pahanmy.github.io/spark/tempahanbilik.html" target="_blank" class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
+                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-amber-50 p-4 rounded-2xl text-amber-500">
                         <svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                     </div>
                     <div class="flex-grow">
                         <h3 class="text-base md:text-xl font-black text-gray-900 md:mb-2 uppercase">SPARKroom</h3>
-                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Smart Meeting Spaces</p>
-                        <div class="hidden md:block mt-3">
-                            <div class="text-[11px] text-gray-500 font-bold uppercase">• Kalendar Tempahan Real-Time</div>
-                        </div>
+                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Tempahan Bilik Mesyuarat</p>
                     </div>
                 </a>
 
-                <a href="https://pahanmy.github.io/spark/kenderaan.html" target="_blank" 
-                   class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
-                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-cyan-50 p-3 md:p-5 rounded-2xl text-[#0891b2]">
+                <a href="https://pahanmy.github.io/spark/kenderaan.html" target="_blank" class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
+                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-cyan-50 p-4 rounded-2xl text-cyan-600">
                         <svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" /></svg>
                     </div>
                     <div class="flex-grow">
                         <h3 class="text-base md:text-xl font-black text-gray-900 md:mb-2 uppercase">SPARKfleet</h3>
-                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Fleet & Movement Management</p>
-                        <div class="hidden md:block mt-3">
-                            <div class="text-[11px] text-gray-500 font-bold uppercase">• Log Pergerakan Pemandu</div>
-                        </div>
+                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Tempahan Kenderaan Rasmi</p>
                     </div>
                 </a>
 
-                <a href="https://pahanmy.github.io/spark/jadual.html" target="_blank" 
-                   class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
-                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-red-50 p-3 md:p-5 rounded-2xl text-[#DC2626]">
+                <a href="https://pahanmy.github.io/spark/jadual.html" target="_blank" class="tech-card rounded-2xl shadow-sm md:shadow-xl group">
+                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-red-50 p-4 rounded-2xl text-red-600">
                         <svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                     </div>
                     <div class="flex-grow">
                         <h3 class="text-base md:text-xl font-black text-gray-900 md:mb-2 uppercase">TAKWIM PPD</h3>
-                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Strategic Planning Schedule</p>
-                        <div class="hidden md:block mt-3">
-                            <div class="text-[11px] text-gray-500 font-bold uppercase">• Jadual Program PPD Terkini</div>
-                        </div>
+                        <p class="text-[10px] md:text-xs text-gray-500 font-medium md:mb-4">Jadual Program Terkini</p>
                     </div>
                 </a>
 
-                <div class="tech-card rounded-2xl shadow-sm md:shadow-xl opacity-60 bg-white/50 border-dashed border-2 border-gray-200 cursor-not-allowed">
-                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-gray-50 p-3 md:p-5 rounded-2xl grayscale">
+                <div class="tech-card rounded-2xl shadow-sm md:shadow-xl opacity-50 bg-white/50 border-dashed border-2 border-gray-200 cursor-not-allowed">
+                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-gray-100 p-4 rounded-2xl grayscale">
                         <svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                     </div>
                     <div class="flex-grow">
                         <h3 class="text-base md:text-xl font-black text-gray-400 md:mb-2 uppercase">SparkTask</h3>
-                        <p class="text-[9px] text-red-500 font-black italic uppercase">Coming Soon / Maintenance</p>
+                        <span class="status-badge bg-red-100 text-red-600">Coming Soon</span>
                     </div>
                 </div>
 
-                <a href="https://pahanmy.github.io/spark/maklumbalas.html" target="_blank" 
-                   class="tech-card rounded-2xl shadow-md md:shadow-2xl border-l-4 border-l-[#7c3aed] group">
-                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-purple-50 p-3 md:p-5 rounded-2xl text-[#7c3aed]">
+                <a href="https://pahanmy.github.io/spark/maklumbalas.html" target="_blank" class="tech-card rounded-2xl shadow-md md:shadow-2xl border-l-4 border-l-purple-600 group">
+                    <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-purple-50 p-4 rounded-2xl text-purple-600">
                         <svg class="w-6 h-6 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
                     </div>
                     <div class="flex-grow">
                         <div class="flex items-center gap-2 mb-1">
-                            <h3 class="text-base md:text-xl font-black text-gray-900 uppercase">SPARKvoice</h3>
-                            <span class="status-badge bg-purple-100 text-purple-600 hidden md:inline">LIVE</span>
+                            <h3 class="text-base md:text-xl font-bold text-gray-900 uppercase">SPARKvoice</h3>
+                            <span class="status-badge bg-purple-100 text-purple-600 hidden md:inline">Baru</span>
                         </div>
-                        <p class="text-[10px] md:text-xs text-purple-600 font-extrabold uppercase italic md:mb-4">Suara Anda Perubahan Kami</p>
+                        <p class="text-[10px] md:text-xs text-purple-600 font-extrabold uppercase italic tracking-wider">Sampaikan idea atau pandangan anda di sini</p>
                         <div class="hidden md:block mt-3">
-                            <div class="text-[11px] text-gray-500 font-bold uppercase">• Maklumbalas, Idea & Aduan Rasmi</div>
+                            <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Suara Anda Perubahan Kami</div>
                         </div>
                     </div>
                 </a>
 
             </div>
         </main>
-
-        <footer class="py-10 text-center border-t border-gray-100">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">&copy; 2026 Pejabat Pendidikan Daerah Miri</p>
-            <p class="text-[10px] text-indigo-400 font-black uppercase">Digital Ecosystem</p>
-        </footer>
     </div>
 
     <script>
         function updateLiveDateTime() {
             const now = new Date();
-            const options = { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kuala_Lumpur' };
-            document.getElementById('live-datetime').innerHTML = `
-                <span class="text-indigo-600 font-black uppercase mr-1">${now.toLocaleDateString('ms-MY', {weekday: 'short'})}</span>
-                ${now.toLocaleDateString('ms-MY', {day: 'numeric', month: 'short'})} • ${now.toLocaleTimeString('ms-MY', {hour: '2-digit', minute: '2-digit', hour12: true})}
-            `;
+            const options = { weekday: 'long', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kuala_Lumpur' };
+            const formattedDate = now.toLocaleString('ms-MY', options);
+            const desktopEl = document.getElementById('live-datetime');
+            const mobileEl = document.getElementById('live-datetime-mobile');
+            const html = `<span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span></span>${formattedDate}`;
+            if(desktopEl) desktopEl.innerHTML = html;
+            if(mobileEl) mobileEl.innerHTML = html;
         }
         updateLiveDateTime();
         setInterval(updateLiveDateTime, 1000);
