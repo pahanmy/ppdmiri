@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: #f8fafc;
             background-image: 
                 radial-gradient(at 0% 0%, rgba(91, 76, 243, 0.15) 0px, transparent 50%),
@@ -21,185 +21,191 @@
             background-size: cover;
         }
         
-        .smooth-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .spark-color { color: #5B4CF3; } 
-        .sparktask-color { color: #10B981; } 
-        .sparkroom-color { color: #F59E0B; } 
-        .takwim-color { color: #DC2626; } 
-        .sparkfleet-color { color: #0891b2; }
-        .sparkvoice-color { color: #7c3aed; }
-
-        .full-screen-container { min-height: 100vh; display: flex; flex-direction: column; }
-
-        .bg-spark-light { background-color: rgba(247, 246, 255, 0.9); }
-        .bg-sparktask-light { background-color: rgba(240, 253, 244, 0.9); }
-        .bg-sparkroom-light { background-color: rgba(255, 251, 235, 0.9); }
-        .bg-takwim-light { background-color: rgba(254, 242, 242, 0.9); } 
-        .bg-sparkfleet-light { background-color: rgba(236, 254, 255, 0.9); }
-        .bg-sparkvoice-light { background-color: rgba(250, 245, 255, 0.9); }
-
-        .grid-container-custom { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
-        
-        @media (min-width: 768px) {
-            .grid-container-custom { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
         }
-        @media (min-width: 1280px) {
-            .grid-container-custom { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+        .tech-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 1);
         }
+
+        .tech-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -15px rgba(91, 76, 243, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .tech-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tech-card:hover::before { opacity: 1; }
+
+        .profile-logo-outer {
+            position: relative;
+            width: 130px; height: 130px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .logo-ring {
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 2px dashed #5B4CF3;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .profile-logo {
-            width: 120px; height: 120px; margin: 0 auto; border-radius: 50%;
-            background-color: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            background: white;
+            z-index: 2;
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden; border: 4px solid white;
-        }
-        
-        .profile-logo img { width: 100%; height: 100%; object-fit: cover; }
-
-        .smart-card {
-            display: flex; align-items: center; flex-direction: row;
-            text-align: left; padding: 1rem; backdrop-filter: blur(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        @media (min-width: 768px) {
-            .smart-card { flex-direction: column; text-align: center; padding: 1.5rem; justify-content: center; }
-        }
+        .grid-container-custom { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+        @media (min-width: 768px) { .grid-container-custom { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
+        @media (min-width: 1280px) { .grid-container-custom { grid-template-columns: repeat(3, 1fr); } }
 
-        /* Gaya Disabled untuk SparkTask */
-        .card-disabled { opacity: 0.6; cursor: not-allowed; filter: grayscale(0.5); }
+        .status-badge {
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="text-gray-800 antialiased">
 
-    <div class="full-screen-container max-w-screen-2xl mx-auto w-full">
-        <div class="flex-1 flex flex-col">
-            <main class="flex-1 p-4 md:p-10 flex flex-col items-center">
-                
-                <section id="dashboard" class="w-full max-w-md md:max-w-6xl mx-auto">
-                    
-                    <div class="text-center mb-8 mt-4">
-                        <div class="profile-logo mb-6 transition-transform hover:scale-105 duration-300">
-                            <img src="https://i.ibb.co/yn0CBgt3/logo-PPD-Miri-LATEST.png" alt="Logo PPD Miri">
-                        </div>
-                        <h2 class="text-2xl md:text-5xl font-extrabold text-[#5B4CF3] mb-1 tracking-tight">Portal PPD Miri</h2>
-                        <p class="text-sm md:text-lg text-gray-500 font-medium">Inovasi Pendigitalan Pendidikan</p>
-                        <span id="live-datetime" class="block text-xs md:text-base font-semibold text-gray-500 mt-3 bg-white/80 backdrop-blur-sm inline-block px-4 py-1.5 rounded-full shadow-sm border border-gray-100"></span>
+    <div class="min-h-screen flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <main class="flex-grow py-10 md:py-20">
+            
+            <div class="text-center mb-16">
+                <div class="profile-logo-outer mb-8">
+                    <div class="logo-ring opacity-30"></div>
+                    <div class="profile-logo border-4 border-white">
+                        <img src="https://i.ibb.co/yn0CBgt3/logo-PPD-Miri-LATEST.png" alt="Logo PPD Miri" class="w-full h-full object-contain p-2">
                     </div>
-
-                    <div class="grid-container-custom w-full">
-                        
-                        <a href="https://pahanmy.github.io/spark/index.html" target="_blank" 
-                           class="smart-card rounded-xl md:rounded-2xl shadow-xl border border-gray-200/60 hover:border-indigo-300 smooth-transition transform hover:scale-[1.01] bg-white md:bg-spark-light group">
-                            <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-indigo-50 md:bg-transparent p-2 md:p-0 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-10 md:w-10 spark-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h3 class="text-base md:text-xl font-bold text-gray-800 group-hover:text-[#5B4CF3]">SPARK</h3>
-                                <span class="text-xs md:text-sm text-gray-500 block">Kehadiran Digital & Aset</span>
-                                <div class="hidden md:block mt-3 space-y-1">
-                                    <div class="text-[11px] text-gray-600">• Pengurusan Aset Bersepadu</div>
-                                    <div class="text-[11px] text-gray-600">• QR Kehadiran Program</div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <div class="smart-card rounded-xl md:rounded-2xl shadow-xl border border-gray-200/60 bg-white md:bg-sparktask-light card-disabled relative group">
-                            <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-emerald-50 md:bg-transparent p-2 md:p-0 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-10 md:w-10 sparktask-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h3 class="text-base md:text-xl font-bold text-gray-800">SparkTask</h3>
-                                <span class="text-xs md:text-sm text-red-500 font-bold uppercase tracking-tighter italic">Belum Dapat Digunakan</span>
-                                <div class="hidden md:block mt-3 space-y-1">
-                                    <div class="text-[11px] text-gray-600">• Semakan Tugasan Program</div>
-                                    <div class="text-[11px] text-gray-600">• Warga PPD & Sekolah</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="https://pahanmy.github.io/spark/tempahanbilik.html" target="_blank" 
-                           class="smart-card rounded-xl md:rounded-2xl shadow-xl border border-gray-200/60 hover:border-amber-300 smooth-transition transform hover:scale-[1.01] bg-white md:bg-sparkroom-light group">
-                            <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-amber-50 md:bg-transparent p-2 md:p-0 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-10 md:w-10 sparkroom-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h3 class="text-base md:text-xl font-bold text-gray-800 group-hover:text-amber-600">SparkRoom</h3>
-                                <span class="text-xs md:text-sm text-gray-500 block">Tempahan Bilik Mesyuarat</span>
-                                <div class="hidden md:block mt-3 space-y-1">
-                                    <div class="text-[11px] text-gray-600">• Kalendar Masa Nyata</div>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <a href="https://pahanmy.github.io/spark/kenderaan.html" target="_blank" 
-                           class="smart-card rounded-xl md:rounded-2xl shadow-xl border border-gray-200/60 hover:border-cyan-300 smooth-transition transform hover:scale-[1.01] bg-white md:bg-sparkfleet-light group">
-                            <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-cyan-50 md:bg-transparent p-2 md:p-0 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-10 md:w-10 sparkfleet-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                                </svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h3 class="text-base md:text-xl font-bold text-gray-800 group-hover:text-cyan-600">SPARKfleet</h3>
-                                <span class="text-xs md:text-sm text-gray-500 block">Tempahan Kenderaan</span>
-                                <div class="hidden md:block mt-3 space-y-1">
-                                    <div class="text-[11px] text-gray-600">• Jadual Pergerakan Pemandu</div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="https://pahanmy.github.io/spark/jadual.html" target="_blank" 
-                           class="smart-card rounded-xl md:rounded-2xl shadow-xl border border-gray-200/60 hover:border-red-300 smooth-transition transform hover:scale-[1.01] bg-white md:bg-takwim-light group">
-                            <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-red-50 md:bg-transparent p-2 md:p-0 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-10 md:w-10 takwim-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h3 class="text-base md:text-xl font-bold text-gray-800 group-hover:text-red-600">Takwim PPD</h3>
-                                <span class="text-xs md:text-sm text-gray-500 block">Jadual Program Terkini</span>
-                                <div class="hidden md:block mt-3 space-y-1">
-                                    <div class="text-[11px] text-gray-600">• Penyemakan Takwim PPD</div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="maklumbalas.html" target="_blank" 
-                           class="smart-card rounded-xl md:rounded-2xl shadow-xl border border-gray-200/60 hover:shadow-2xl hover:border-purple-400 smooth-transition transform hover:scale-[1.01] bg-white md:bg-sparkvoice-light group border-l-4 border-l-purple-500">
-                            <div class="flex-shrink-0 mr-4 md:mr-0 md:mb-4 bg-purple-50 md:bg-transparent p-2 md:p-0 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-10 md:w-10 sparkvoice-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                                </svg>
-                            </div>
-                            <div class="flex-grow">
-                                <h3 class="text-base md:text-xl font-bold text-gray-800 group-hover:text-purple-600">SPARKvoice</h3>
-                                <span class="text-xs md:text-sm text-gray-500 block">Saluran Suara Warga</span>
-                                <div class="hidden md:block mt-3 space-y-1">
-                                    <div class="text-[11px] text-gray-600">• Maklumbalas, Aduan & Idea</div>
-                                    <div class="text-[11px] text-purple-600 font-bold uppercase tracking-widest italic">Suara Anda Perubahan Kami</div>
-                                </div>
-                            </div>
-                        </a>
-
-                    </div>
-                </section>
-                
-            </main>
-
-            <footer class="mt-8 mb-4 text-center">
-                <div class="container mx-auto px-6 text-gray-400">
-                    <p class="text-[10px] md:text-sm">&copy; 2025 Pejabat Pendidikan Daerah Miri</p>
-                    <p class="text-[10px] opacity-70">Dibangunkan oleh Pahan</p>
                 </div>
-            </footer>
-        </div>
+
+                <h1 class="text-4xl md:text-6xl font-black text-[#5B4CF3] tracking-tighter mb-4">
+                    PORTAL <span class="text-gray-900">PPD MIRI</span>
+                </h1>
+                <div class="flex items-center justify-center gap-2 mb-6">
+                    <span class="h-px w-8 bg-indigo-200"></span>
+                    <p class="text-sm md:text-lg text-gray-500 font-bold uppercase tracking-widest">Digital Ecosystem</p>
+                    <span class="h-px w-8 bg-indigo-200"></span>
+                </div>
+                
+                <div id="live-datetime" class="glass-panel px-6 py-2 rounded-2xl text-xs md:text-sm font-bold text-gray-600 shadow-sm inline-flex items-center gap-2">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    </span>
+                    Memuatkan masa...
+                </div>
+            </div>
+
+            <div class="grid-container-custom w-full">
+                
+                <a href="https://pahanmy.github.io/spark/index.html" target="_blank" 
+                   class="tech-card rounded-3xl p-8 flex flex-col items-center text-center text-[#5B4CF3]">
+                    <div class="bg-indigo-50 p-5 rounded-2xl mb-6 shadow-inner">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-2">SPARK</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-4">Pengurusan Digital Bersepadu</p>
+                    <div class="space-y-1">
+                        <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Kehadiran Digital QR</div>
+                        <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Sistem Inventori Aset</div>
+                    </div>
+                </a>
+
+                <a href="https://pahanmy.github.io/spark/tempahanbilik.html" target="_blank" 
+                   class="tech-card rounded-3xl p-8 flex flex-col items-center text-center text-[#F59E0B]">
+                    <div class="bg-amber-50 p-5 rounded-2xl mb-6 shadow-inner">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-2">SPARKroom</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-4">Smart Meeting Spaces</p>
+                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Kalendar Tempahan Real-Time</div>
+                </a>
+
+                <a href="https://pahanmy.github.io/spark/kenderaan.html" target="_blank" 
+                   class="tech-card rounded-3xl p-8 flex flex-col items-center text-center text-[#0891b2]">
+                    <div class="bg-cyan-50 p-5 rounded-2xl mb-6 shadow-inner">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" /></svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-2">SPARKfleet</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-4">Fleet & Movement Management</p>
+                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Log Pergerakan Pemandu</div>
+                </a>
+
+                <a href="https://pahanmy.github.io/spark/jadual.html" target="_blank" 
+                   class="tech-card rounded-3xl p-8 flex flex-col items-center text-center text-[#DC2626]">
+                    <div class="bg-red-50 p-5 rounded-2xl mb-6 shadow-inner">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-black text-gray-900 mb-2">TAKWIM PPD</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-4">Strategic Planning Schedule</p>
+                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Jadual Program PPD Terkini</div>
+                </a>
+
+                <div class="tech-card rounded-3xl p-8 flex flex-col items-center text-center text-gray-300 bg-white/50 border-dashed border-2 border-gray-200 cursor-not-allowed">
+                    <div class="bg-gray-50 p-5 rounded-2xl mb-6 grayscale shadow-inner">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    </div>
+                    <div class="status-badge bg-red-100 text-red-600 mb-2">OFFLINE</div>
+                    <h3 class="text-xl font-black text-gray-400 mb-2">SparkTask</h3>
+                    <p class="text-xs text-gray-400 font-medium">Akan Datang / Under Maintenance</p>
+                </div>
+
+                <a href="https://pahanmy.github.io/spark/maklumbalas.html" target="_blank" 
+                   class="tech-card rounded-3xl p-8 flex flex-col items-center text-center text-[#7c3aed] border-l-8 border-l-[#7c3aed]">
+                    <div class="bg-purple-50 p-5 rounded-2xl mb-6 shadow-inner">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+                    </div>
+                    <div class="status-badge bg-purple-100 text-purple-600 mb-2">LIVE</div>
+                    <h3 class="text-xl font-black text-gray-900 mb-2 uppercase tracking-tighter">SPARKvoice</h3>
+                    <p class="text-xs text-purple-600 font-extrabold uppercase mb-4 tracking-widest italic">Suara Anda Perubahan Kami</p>
+                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-tighter">• Maklumbalas, Idea & Aduan Rasmi</div>
+                </a>
+
+            </div>
+        </main>
+
+        <footer class="py-10 text-center border-t border-gray-100">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">&copy; 2026 Pejabat Pendidikan Daerah Miri</p>
+            <p class="text-[10px] text-indigo-400 font-black uppercase">Pahan Labs Digital Production</p>
+        </footer>
     </div>
 
     <script>
         function updateLiveDateTime() {
             const now = new Date();
             const options = { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Kuala_Lumpur' };
-            document.getElementById('live-datetime').textContent = now.toLocaleString('ms-MY', options);
+            document.getElementById('live-datetime').innerHTML = `
+                <span class="text-indigo-600 font-black uppercase mr-1">${now.toLocaleDateString('ms-MY', {weekday: 'short'})}</span>
+                ${now.toLocaleDateString('ms-MY', {day: 'numeric', month: 'short'})} • ${now.toLocaleTimeString('ms-MY', {hour: '2-digit', minute: '2-digit', hour12: true})}
+            `;
         }
         updateLiveDateTime();
         setInterval(updateLiveDateTime, 1000);
